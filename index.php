@@ -47,12 +47,23 @@
             </form>
             <p class="result">
             <?php
-                if(isset($_POST['submit']) && is_numeric($_POST['bill']) && $_POST['bill'] > 0) {
-                    $print_tip = $_POST['tip'];
-                    $print_bill = $_POST['bill'];
-                    echo '<p><text area readonly class="box">Tip: $'.(($print_bill * $print_tip)).'</p>';
-                    echo '<p><text area readonly class="box">Total: $'.($print_bill + ($print_bill * $print_tip)).'</p>';
+                if(isset($_POST['submit'])) {
+                    if(is_numeric($_POST['bill']) && $_POST['bill'] > 0) {
+                        $print_tip = $_POST['tip'];
+                        $print_bill = $_POST['bill'];
+                        echo '<br><text area readonly class="tip_box">Tip: $'.(($print_bill * $print_tip)).'</br>';
+                        echo '<br><text area readonly class="total_box">Total: $'.($print_bill + ($print_bill * $print_tip)).'</br>';
+                    }
+                    else if($_POST['bill'] <= 0)
+                    {
+                        echo "<script>alert('Amount cannot be negative');</script>";
+                    }
+                    else if(!is_numeric($_POST['bill']))
+                    {
+                        echo "<script>alert('Amount must be numeric.');</script>";
+                    }
                 }
+                
             ?></p>
         </div>
     </body>
